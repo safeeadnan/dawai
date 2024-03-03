@@ -10,6 +10,17 @@ import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
+import auth from '@react-native-firebase/auth';
+
+const userLogin = async (email, password) => {
+  try {
+    await auth().signInWithEmailAndPassword(email, password);
+    console.log('User logged in!');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -23,6 +34,8 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError })
       return
     }
+    const a= userLogin(email,password)
+    console.log(userLogin(email,password))
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],
