@@ -1,31 +1,126 @@
-import React from 'react'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Paragraph from '../components/Paragraph'
-import Button from '../components/Button'
-import SearchBar from '../components/SearchBar'
+import React, { Component } from "react";
+import { StyleSheet, Text, View, FlatList } from "react-native";
+import { ListItem, SearchBar } from "react-native-elements";
+import { theme } from '../core/theme'
 
-export default function Dashboard({ navigation }) {
+const DATA = [
+  {
+    id: "1",
+    title: "Data Structures",
+  },
+  {
+    id: "2",
+    title: "STL",
+  },
+  {
+    id: "3",
+    title: "C++",
+  },
+  {
+    id: "4",
+    title: "Java",
+  },
+  {
+    id: "5",
+    title: "Python",
+  },
+  {
+    id: "6",
+    title: "CP",
+  },
+  {
+    id: "7",
+    title: "ReactJs",
+  },
+  {
+    id: "8",
+    title: "NodeJs",
+  },
+  {
+    id: "9",
+    title: "MongoDb",
+  },
+  {
+    id: "10",
+    title: "ExpressJs",
+  },
+  {
+    id: "11",
+    title: "PHP",
+  },
+  {
+    id: "12",
+    title: "MySql",
+  },
+];
+
+const Item = ({ title }) => {
   return (
-    <Background>
-      <SearchBar/>
-      <Logo />
-      <Header>Hi User</Header>
-      <Paragraph>
-        QWERTY
-      </Paragraph>
-      <Button
-        mode="outlined"
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'StartScreen' }],
-          })
-        }
-      >
-        Logout
-      </Button>
-    </Background>
-  )
+    <View style={styles.item}>
+      <Text>{title}</Text>
+    </View>
+  );
+};
+
+const renderItem = ({ item }) => <Item title={item.title} />;
+class Search extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      data: DATA,
+      error: null,
+      searchValue: "",
+    };
+    this.arrayholder = DATA;
+  }
+
+  searchFunction = (text) => {
+    const updatedData = this.arrayholder.filter((item) => {
+      const item_data = `${item.title.toUpperCase()})`;
+      const text_data = text.toUpperCase();
+      return item_data.indexOf(text_data) > -1;
+    });
+    this.setState({ data: updatedData, searchValue: text });
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <SearchBar
+          placeholder="Search Here..."
+          lightTheme
+          round
+          value={this.state.searchValue}
+          onChangeText={(text) => this.searchFunction(text)}
+          autoCorrect={false}
+
+        />
+        <FlatList
+          data={this.state.data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    );
+  }
 }
+
+export default Search;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 40,
+    padding: 2,
+  },
+  FlatList: {
+    marginTop: 10,
+    marginLeft: 0,
+  },
+  item: {
+    backgroundColor: theme.colors.primary,
+    padding: 10,
+    marginVertical: 4,
+    marginHorizontal: 16,
+  },
+});
