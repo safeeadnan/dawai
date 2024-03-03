@@ -11,7 +11,7 @@ export default function Dashboard({ navigation }) {
     <Background>
       <SearchBar/>
       <Logo />
-      <Header>Hi ZUnera</Header>
+      <Header>Hi User</Header>
       <Paragraph>
         QWERTY
       </Paragraph>
