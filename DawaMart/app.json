@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DawaMart",
-    "slug": "DawaMart",
+    "name": "dawaMart",
+    "slug": "dawaMart",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
